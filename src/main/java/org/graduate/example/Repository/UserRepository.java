@@ -15,29 +15,29 @@ public interface UserRepository extends ReactiveCrudRepository<User,String> {
 
 
     @Modifying
-    @Query("UPDATE user u set u.password=:encodePassword where u.id=:uid")
+    @Query("UPDATE my_user u set u.password=:encodePassword where u.id=:uid")
     Mono<Integer> updatePasswordById(String uid,String encodePassword);
 
     @Modifying
-    @Query("UPDATE user u set u.password=:encodePassword where u.account=:account")
+    @Query("UPDATE my_user u set u.password=:encodePassword where u.account=:account")
     Mono<Integer> updatePasswordByAccount(String account,String encodePassword);
 
 
-    @Query("select count(*) from user  where department->>'$.depId'=:did")
+    @Query("select count(*) from my_user  where department->>'$.depId'=:did")
     Mono<Integer> countByDepartment(String did);
 
 
-    @Query("select * from user where department->>'$.depId'=:depId and role=:role")
+    @Query("select * from my_user where department->>'$.depId'=:depId and role=:role")
     Flux<User> findByDepIdAndRole(String depId, String role);
 
-    @Query("select * from user where department->>'$.depId'=:depId and role=:role and `group`=:group")
+    @Query("select * from my_user where department->>'$.depId'=:depId and role=:role and `group`=:group")
     Flux<User> findByDepIdAndRoleAndGroup(String depId,String role,int group);
 
 
-    @Query("select * from user u where department->>'$.depId'=:depId and student->>'$.teacherId'=:tid")
+    @Query("select * from my_user u where department->>'$.depId'=:depId and student->>'$.teacherId'=:tid")
     Flux<User> mentorStudents(String depId,String tid);
 
     @Modifying
-    @Query("update user u set student=json_set(student,'$.teacherId',:tid) where id=:sid")
+    @Query("update my_user u set student=json_set(student,'$.teacherId',:tid) where id=:sid")
     Mono<Void> updateStudentById(String sid,String tid);
 }

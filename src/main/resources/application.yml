@@ -18,4 +18,4 @@ logging:
     io.r2dbc:
 
 my:
-  key: ${{MY_SECRET}}
+  key: wefwefg

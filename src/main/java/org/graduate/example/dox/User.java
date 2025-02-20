@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table("user")
+@Table("my_user")
 public class User {
     public static final String ROLE_STUDENT = "qpCf";
     public static final String ROLE_TEACHER = "kU4T";
@@ -28,7 +28,7 @@ public class User {
     private String password;
     private String role;
     private String department;
-    private int group;
+    private Integer group;
     private String teacher;
     private String student;
     @ReadOnlyProperty

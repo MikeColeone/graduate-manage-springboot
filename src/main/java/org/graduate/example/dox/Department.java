@@ -13,7 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table("department")
+@Table("my_department")
 public class Department {
     @Id
     @CreatedBy

@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
 //                .subscribe();
 //    }
     @PostConstruct
-    void init() {
+    public void init() {
         departmentRepository.findAll()
                 .map(Department::getDepId)
                 .flatMap(depId-> processRepository.findByDepId(depId)

@@ -9,12 +9,12 @@ import reactor.core.publisher.Mono;
 
 @Repository
 public interface ProcessRepository extends ReactiveCrudRepository<Process,String> {
-    @Query("select * from `process` p where p.depId=:depId")
+    @Query("select * from `my_process` p where p.depId=:depId")
     Flux<Process> findByDepId(String depId);
 
 
 
-    @Query("delete from process where id=:pid and depId=:did")
+    @Query("delete from my_process where id=:pid and depId=:did")
     Mono<Void> deleteByIdAndDepId(String pid, String did);
 
 }

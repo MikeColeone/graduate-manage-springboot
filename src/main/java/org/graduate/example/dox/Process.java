@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
@@ -14,13 +15,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table("my_process")
 public class Process {
     @Id
     @CreatedBy
     private String id;
     private String name;
     private String depId;
-    private int weight;
+    private Integer weight;
     private String parts;
     private String addPart;
     @ReadOnlyProperty
