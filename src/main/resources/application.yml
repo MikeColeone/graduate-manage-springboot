@@ -1,15 +1,15 @@
 spring:
   r2dbc:
-    url: r2dbc:mysql://120.46.159.231:3306/2022212808?createDatabaseIfNotExist=true'
-    username: 2022212808
-    password: 2022212808
+    url: r2dbc:mysql://120.46.159.231:3306/2022212829?createDatabaseIfNotExist=true'
+    username: 2022212829
+    password: 2022212829
   data:
     redis:
       host: 120.46.159.231
       port: 6379
       username: default
       password: 2046
-      database: 9
+      database: 14
 
 
 
@@ -18,4 +18,4 @@ logging:
     io.r2dbc:
 
 my:
-  key: abc
+  key: ${{MY_SECRET}}
