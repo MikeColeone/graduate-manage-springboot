@@ -1,8 +1,14 @@
 spring:
   r2dbc:
-    url: r2dbc:mysql://120.46.159.231:3306/2022212829?createDatabaseIfNotExist=true'
-    username: 2022212829
-    password: 2022212829
+    url: r2dbc:mysql://47.94.82.212:3306/graduate-manage?createDatabaseIfNotExist=true
+#    url: r2dbc:mysql://localhost/2022212829?createDatabaseIfNotExist=true
+#    url: r2dbc:mysql://120.46.159.231:3306/2022212829?createDatabaseIfNotExist=true
+    username: root
+    password: 123456
+    pool:
+      enabled: true
+      max-size: 10
+      initial-size: 10
   data:
     redis:
       host: 120.46.159.231
@@ -15,7 +21,8 @@ spring:
 
 logging:
   level:
-    io.r2dbc:
+    io.r2dbc: DEBUG
+    org.springframework.r2dbc.core: DEBUG
 
 my:
   key: wefwefg

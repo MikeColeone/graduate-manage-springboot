@@ -14,6 +14,7 @@ public interface UserRepository extends ReactiveCrudRepository<User,String> {
     Mono<User> findByAccount(String account);
 
 
+
     @Modifying
     @Query("UPDATE my_user u set u.password=:encodePassword where u.id=:uid")
     Mono<Integer> updatePasswordById(String uid,String encodePassword);

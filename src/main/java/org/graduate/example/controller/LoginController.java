@@ -5,7 +5,7 @@ package org.graduate.example.controller;
 import lombok.RequiredArgsConstructor;
 import org.graduate.example.component.JWTComponent;
 import org.graduate.example.dto.Code;
-import org.graduate.example.dto.Login;
+import org.graduate.example.dto.LoginDto;
 import org.graduate.example.vo.ResultVO;
 import org.graduate.example.service.UserService;
 import org.graduate.example.vo.RequestAttributeConstant;
@@ -24,11 +24,11 @@ public class LoginController {
     private final PasswordEncoder passwordEncoder;
     private final JWTComponent jwtComponent;
     @PostMapping("login")
-    public Mono<ResultVO> login(@RequestBody Login login, ServerHttpResponse resp){
+    public Mono<ResultVO> login(@RequestBody LoginDto login, ServerHttpResponse resp){
         return userService.getUser(login.getAccount())
                 .filter(u->passwordEncoder.matches(login.getPassword(),u.getPassword()))
                 .map(user -> {
-                    String token=jwtComponent.encode(Map.of("uid", user.getId(), "role", user.getRole(),"department",user.getDepartment(),"group",user.getGroup()));
+                    String token=jwtComponent.encode(Map.of("uid", user.getId(), "role", user.getRole(),"department",user.getDepartment(),"group",user.getGroupNumber()));
                     resp.getHeaders().add(RequestAttributeConstant.TOKEN,token);
                     resp.getHeaders().add(RequestAttributeConstant.ROLE,user.getRole());
                     return ResultVO.success(user);}

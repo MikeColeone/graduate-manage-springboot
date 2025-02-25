@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface UserService {
 
-    void init();
+//    void init();
 
     //登录时拿user
     public Mono<User> getUser(String account);

@@ -2,7 +2,7 @@ package org.graduate.example.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.graduate.example.component.JWTComponent;
-import org.graduate.example.dto.Login;
+import org.graduate.example.dto.LoginDto;
 import org.graduate.example.service.UserService;
 import org.graduate.example.vo.ResultVO;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class LoginTest {
     private PasswordEncoder passwordEncoder;
     @Test
     void login(){
-        Login login=Login.builder()
+        LoginDto login= LoginDto.builder()
                 .account("1")
                 .password("1")
                 .build();

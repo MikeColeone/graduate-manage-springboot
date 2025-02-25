@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.ReadOnlyProperty;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 
@@ -24,11 +25,14 @@ public class User {
     @CreatedBy
     private String id;
     private String name;
+    @Column("number")
     private String account;
     private String password;
     private String role;
+    @Column("department_id")
     private String department;
-    private Integer group;
+    @Column("group_number")
+    private Integer groupNumber;
     private String teacher;
     private String student;
     @ReadOnlyProperty

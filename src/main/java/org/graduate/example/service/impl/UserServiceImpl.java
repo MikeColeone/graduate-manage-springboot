@@ -11,10 +11,10 @@ import org.graduate.example.dox.Department;
 import org.graduate.example.dox.Process;
 import org.graduate.example.dox.User;
 import org.graduate.example.service.UserService;
-import org.redisson.api.RBucket;
-import org.redisson.api.RedissonClient;
-import org.redisson.client.codec.StringCodec;
-import org.redisson.codec.TypedJsonJacksonCodec;
+//import org.redisson.api.RBucket;
+//import org.redisson.api.RedissonClient;
+//import org.redisson.client.codec.StringCodec;
+//import org.redisson.codec.TypedJsonJacksonCodec;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final DepartmentRepository departmentRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RedissonClient redissonClient;
+//    private final RedissonClient redissonClient;
 
 
     //    @PostConstruct
@@ -52,18 +52,18 @@ public class UserServiceImpl implements UserService {
 //                .flatMap(this::cacheProcesses)
 //                .subscribe();
 //    }
-    @PostConstruct
-    public void init() {
-        departmentRepository.findAll()
-                .map(Department::getDepId)
-                .flatMap(depId-> processRepository.findByDepId(depId)
-                        .collectList()
-                        .doOnNext(processList ->
-                                redissonClient.getBucket("processes:" + depId, StringCodec.INSTANCE).set(Collections.singletonList(processList))
-                        )
-                ).subscribe();
-    }
-
+//    @PostConstruct
+//    public void init() {
+//        departmentRepository.findAll()
+//                .map(Department::getDepId)
+//                .flatMap(depId-> processRepository.findByDepId(depId)
+//                        .collectList()
+//                        .doOnNext(processList ->
+//                                redissonClient.getBucket("processes:" + depId, StringCodec.INSTANCE).set(Collections.singletonList(processList))
+//                        )
+//                ).subscribe();
+//    }
+//
 //    private Mono<Void> cacheProcesses(String depId) {
 //        return processRepository.findByDepId(depId)
 //                .collectList()
@@ -84,6 +84,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByDepIdAndRole(depId,role).collectList();
     }
 
+    @Override
+    public Mono<Object> listProcess(String depId) {
+        return null;
+    }
+
     //查看自己部门的过程
 //    public Mono<List<Process>> listProcess(String depId) {
 //        RBucket<List<Process>> bucket = redissonClient
@@ -91,15 +96,15 @@ public class UserServiceImpl implements UserService {
 //        return Mono.just(bucket.get())
 //                .onErrorResume(throwable -> Mono.just(Collections.emptyList()));
 //    }
-    public Mono<Object> listProcess(String depId) {
-
-        RBucket<List<org.graduate.example.dox.Process>> bucket= redissonClient
-                .getBucket("processes:" + depId,new TypedJsonJacksonCodec(new TypeReference<List<org.graduate.example.dox.Process>>() {}));
-        List<org.graduate.example.dox.Process> processes = bucket.get();
-
-        return Mono.just(processes);
-//        return processRepository.findByDepId(depId).collectList();
-    }
+//    public Mono<Object> listProcess(String depId) {
+//
+//        RBucket<List<org.graduate.example.dox.Process>> bucket= redissonClient
+//                .getBucket("processes:" + depId,new TypedJsonJacksonCodec(new TypeReference<List<org.graduate.example.dox.Process>>() {}));
+//        List<org.graduate.example.dox.Process> processes = bucket.get();
+//
+//        return Mono.just(processes);
+////        return processRepository.findByDepId(depId).collectList();
+//    }
     public Flux<Process> listProcess2(String depId) {
         return processRepository.findByDepId(depId);  // 返回 Flux<Process>
     }
