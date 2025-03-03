@@ -3,6 +3,7 @@ package org.graduate.example.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.graduate.example.component.JWTComponent;
 import org.graduate.example.dto.Code;
 import org.graduate.example.dto.LoginDto;
@@ -16,6 +17,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/")
 @RequiredArgsConstructor
@@ -24,24 +26,28 @@ public class LoginController {
     private final PasswordEncoder passwordEncoder;
     private final JWTComponent jwtComponent;
     @PostMapping("login")
-    public Mono<ResultVO> login(@RequestBody LoginDto login, ServerHttpResponse resp){
+    public Mono<ResultVO> login(@RequestBody LoginDto login, ServerHttpResponse resp) {
+        System.out.println("=========================================================================");
+        log.info("login : {}", login);
         return userService.getUser(login.getAccount())
-                .filter(u->passwordEncoder.matches(login.getPassword(),u.getPassword()))
+                .doOnNext(user -> log.info("查询到用户: {}", user))
+                .filter(u -> passwordEncoder.matches(login.getPassword(), u.getPassword()))
                 .map(user -> {
-                    String token=jwtComponent.encode(Map.of("uid", user.getId(), "role", user.getRole(),"department",user.getDepartment(),"group",user.getGroupNumber()));
-                    resp.getHeaders().add(RequestAttributeConstant.TOKEN,token);
-                    resp.getHeaders().add(RequestAttributeConstant.ROLE,user.getRole());
-                    return ResultVO.success(user);}
-                ).defaultIfEmpty(ResultVO.error(Code.LOGIN_ERROR));
+                    String token = jwtComponent.encode(Map.of(
+                            RequestAttributeConstant.UID, user.getId(),
+                            RequestAttributeConstant.ROLE, user.getRole(),
+                            RequestAttributeConstant.DEPARTMENT_ID, user.getDepartment(),
+                            RequestAttributeConstant.GROUP_NUMBER, user.getGroupNumber()
+                    ));
+
+                    resp.getHeaders().add(RequestAttributeConstant.TOKEN, token);
+                    resp.getHeaders().add(RequestAttributeConstant.ROLE, user.getRole());
+                    log.debug("{}", user);
+                    log.info("Response Headers: {}", resp.getHeaders());
+
+                    return ResultVO.success(user);
+                })
+                .defaultIfEmpty(ResultVO.error(Code.LOGIN_ERROR));
     }
 
-    @GetMapping("test")
-    public Mono<ResultVO> test(@RequestAttribute String depId, @RequestAttribute String role, @RequestAttribute String uid)
-    {
-        StringBuilder result=new StringBuilder("depId->>").append(depId).append("  ")
-                .append("role->>").append(role).append("  ")
-                .append("uid->>").append(uid);
-
-        return Mono.just(ResultVO.success(result));
-    }
 }

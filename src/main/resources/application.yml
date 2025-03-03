@@ -1,6 +1,6 @@
 spring:
   r2dbc:
-    url: r2dbc:mysql://47.94.82.212:3306/graduate-manage?createDatabaseIfNotExist=true
+    url: r2dbc:mysql://47.94.82.212:3306/graduate-manage
 #    url: r2dbc:mysql://localhost/2022212829?createDatabaseIfNotExist=true
 #    url: r2dbc:mysql://120.46.159.231:3306/2022212829?createDatabaseIfNotExist=true
     username: root
@@ -9,13 +9,13 @@ spring:
       enabled: true
       max-size: 10
       initial-size: 10
-  data:
-    redis:
-      host: 120.46.159.231
-      port: 6379
-      username: default
-      password: 2046
-      database: 14
+#  data:
+#    redis:
+#      host: 120.46.159.231
+#      port: 6379
+#      username: default
+#      password: 2046
+#      database: 14
 
 
 
@@ -23,6 +23,12 @@ logging:
   level:
     io.r2dbc: DEBUG
     org.springframework.r2dbc.core: DEBUG
+#    org.graduate.example.controller.LoginController: debug
+
 
 my:
   key: wefwefg
+
+
+server:
+  port: 8080

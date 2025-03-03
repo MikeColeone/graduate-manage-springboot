@@ -18,9 +18,13 @@ public class UserServiceTest {
 //        userService.getUser("1").doOnNext(user -> log.info("{}",user)).block();
 
 
-        userService.getUser("1")
+        userService.getUser("2022212829")
                 .map(ResultVO::success)
                 .doOnNext(resultVO -> log.info("{}",resultVO))
                 .block();
+    }
+
+    @Test
+    void testGetUser() {
     }
 }

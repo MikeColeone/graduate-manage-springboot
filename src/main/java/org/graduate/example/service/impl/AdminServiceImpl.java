@@ -47,8 +47,15 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     //添加用户
     public Mono<Void> addUser(User user) {
-        return userRepository.save(user).then();
+        return Mono.just(user)
+                .map(u -> {
+                    u.setPassword(passwordEncoder.encode(u.getPassword()));
+                    return u;
+                })
+                .flatMap(userRepository::save)
+                .then();
     }
+
     //查看所有用户
     public Mono<List<User>> allUsers(){
         return userRepository.findAll().collectList();

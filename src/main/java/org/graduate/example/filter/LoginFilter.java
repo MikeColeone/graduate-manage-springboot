@@ -34,8 +34,10 @@ public class LoginFilter implements WebFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+        log.info("过滤器处理请求");
         ServerHttpRequest request = exchange.getRequest();
         if (!includes.matches(request.getPath().pathWithinApplication())) {
+            System.out.println("不在范围里跳过");
             return chain.filter(exchange);
         }
 
@@ -44,6 +46,7 @@ public class LoginFilter implements WebFilter {
 
         String token=request.getHeaders().getFirst(RequestAttributeConstant.TOKEN);
         if(token==null) {
+            log.info("token is null");
             return responseHelper.response(Code.UNAUTHORIZED,exchange);
         }
 

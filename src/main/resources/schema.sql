@@ -16,7 +16,7 @@ create table if not exists `my_user`
     department_id char(19)         not null,
     role          char(4)          not null,
     group_number  tinyint unsigned null,
-    student       json             null comment '{"teacherId", "teacherName", "queueNumber", "projectTitle"}',
+    student       json             null comment '{"teacherId", "teacherName", "queueNumber", "projectTitle","class"}',
     teacher       json             null comment '{"A", "C", "total"}',
     insert_time   datetime         not null default current_timestamp,
     update_time   datetime         not null default current_timestamp on update current_timestamp,

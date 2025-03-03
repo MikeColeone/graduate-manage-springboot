@@ -36,7 +36,9 @@ public class User {
     private String teacher;
     private String student;
     @ReadOnlyProperty
+    @Column("insert_time")
     private LocalDateTime createTime;
     @ReadOnlyProperty
+    @Column("update_time")
     private LocalDateTime updateTime;
 }

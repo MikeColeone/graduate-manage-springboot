@@ -12,7 +12,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table("my_score")
+@Table("my_process_score")
 public class Score {
     @CreatedBy
     @Id

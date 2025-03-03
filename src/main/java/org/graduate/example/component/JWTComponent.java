@@ -51,7 +51,7 @@ public class JWTComponent {
             return Mono.error(XException.builder().code(code).build());
         }
     }
-    private final int POS = 37;
+    private final int POS = 11;
     private String encodePos(String str) {
         return new StringBuilder(str).insert(POS, "W").toString();
     }

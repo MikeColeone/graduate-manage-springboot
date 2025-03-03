@@ -7,3 +7,4 @@ public interface RequestAttributeConstant {
     String GROUP_NUMBER = "group";
     String DEPARTMENT_ID = "depId";
 }
+
