@@ -35,6 +35,7 @@ public class LoginFilter implements WebFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
         log.info("过滤器处理请求");
+        System.out.println("login过滤器执行了");
         ServerHttpRequest request = exchange.getRequest();
         if (!includes.matches(request.getPath().pathWithinApplication())) {
             System.out.println("不在范围里跳过");

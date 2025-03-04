@@ -60,8 +60,7 @@ class LoginControllerTest {
         webTestClient.post().uri("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue("{\"account\":\"2022212829\",\"password\":\"2022212829\"}")
-                .exchange()
-                .expectStatus().isOk(); // 确保状态是 200 OK
+                .exchange().expectStatus().isOk();
     }
 
 

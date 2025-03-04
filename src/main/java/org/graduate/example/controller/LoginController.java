@@ -29,6 +29,7 @@ public class LoginController {
     public Mono<ResultVO> login(@RequestBody LoginDto login, ServerHttpResponse resp) {
         System.out.println("=========================================================================");
         log.info("login : {}", login);
+        System.out.println(userService.getUser(login.getAccount()).block());
         return userService.getUser(login.getAccount())
                 .doOnNext(user -> log.info("查询到用户: {}", user))
                 .filter(u -> passwordEncoder.matches(login.getPassword(), u.getPassword()))
